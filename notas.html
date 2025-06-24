@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studink</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+
+</head>
+<body>
+
+  <header>
+    <h1>Studink</h1>
+  </header>
+
+  
+  <section class="notas" id="notas">
+    <h2>📘 Control de Notas</h2>
+    <p>Registra materias y lleva el seguimiento de tus evaluaciones.</p>
+    <button id="abrirModalMateria" class="btn-agregar">Agregar Materia</button>
+  
+    <div id="listaMaterias" class="materias-container"></div>
+  </section>
+  
+  <!-- Modal para registrar materia -->
+  <div class="modal" id="modalMateria">
+    <div class="modal-content">
+      <span class="cerrar" id="cerrarModalMateria">&times;</span>
+      <h3 id="tituloModalMateria">Nueva Materia</h3>
+      <form id="formMateria">
+        <input type="text" name="materia" placeholder="Nombre de la materia" required>
+        <input type="number" name="evaluaciones" placeholder="Cantidad de evaluaciones" min="1" required>
+        <select name="tipo" required>
+          <option value="">Tipo de puntuación</option>
+          <option value="puntos">Por puntos</option>
+          <option value="porcentaje">Por porcentaje</option>
+        </select>
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Modal para agregar nota -->
+  <div class="modal" id="modalNota">
+    <div class="modal-content">
+      <span class="cerrar" id="cerrarModalNota">&times;</span>
+      <h3 id="tituloModalNota">Agregar Nota</h3>
+      <form id="formNota">
+  <input type="text" name="nombre" placeholder="Nombre de la evaluación" required>
+  <input type="number" name="maximo" step="0.01" placeholder="Puntaje total o % de la evaluación" required>
+  <input type="number" name="valor" step="0.01" placeholder="Puntaje obtenido o % obtenido" required>
+  <button type="submit">Guardar Nota</button>
+</form>
+
+    </div>
+  </div>
+  
+  
+
+
+
+
+  
+
+  
+  
+
+  <section class="notas" id="notas">
+  <h2>Mis Notas</h2>
+  <p>Aquí puedes ver o cargar tus calificaciones.</p>
+  <!-- Puedes agregar tabla o formulario después -->
+</section>
+
+<section class="config" id="config">
+  <h2>Configuración</h2>
+  <p>Personaliza la aplicación.</p>
+  <!-- Ejemplo: selector de tema, nombre de usuario, etc -->
+</section>
+
+
+  <!-- Menú inferior nuevo -->
+  <div class="bottom-nav">
+  <a href="index.html" class="nav-item ">
+    <i class="fas fa-calendar-alt"></i>
+    <span>Agenda</span>
+  </a>
+  <a href="horario.html" class="nav-item">
+    <i class="fas fa-clock"></i>
+    <span>Horario</span>
+  </a>
+  <a href="notas.html" class="nav-item active">
+    <i class="fas fa-book"></i>
+    <span>Notas</span>
+  </a>
+  <a href="configuracion.html" class="nav-item">
+    <i class="fas fa-cog"></i>
+    <span>Config</span>
+  </a>
+</div>
+
+
+<!-- Font Awesome para íconos -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+
+<script src="script_notas.js"></script>
+
+
+  <script src="config.js"></script> <!-- Este debe ir antes de tu script.js -->
+  <script src="script.js"></script>
+</body>
+</html>

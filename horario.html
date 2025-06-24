@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studink</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+
+</head>
+<body>
+
+  <header>
+    <h1>Studink</h1>
+  </header>
+
+  
+  <section class="horario" id="horario">
+    <h2>📚 Mi Horario Semanal</h2>
+    <p>Haz clic en cualquier celda para escribir una materia.</p>
+
+    <div class="horario-container">
+      <table id="tablaHorario">
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+            <th>Domingo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 8:00 AM a 6:00 PM en bloques de 1 hora -->
+          <!-- Se puede ajustar fácilmente -->
+          <tbody id="tabla-body"></tbody>
+
+          <script>
+            let dbHorario;
+          
+            document.addEventListener("DOMContentLoaded", () => {
+              const dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
+              const tabla = document.getElementById("tabla-body");
+          
+              // Abrir IndexedDB
+              const request = indexedDB.open("studinkDB", 1);
+              request.onupgradeneeded = (e) => {
+                dbHorario = e.target.result;
+                if (!dbHorario.objectStoreNames.contains("horario")) {
+                  dbHorario.createObjectStore("horario", { keyPath: "id" });
+                }
+              };
+          
+              request.onsuccess = (e) => {
+                dbHorario = e.target.result;
+                cargarHorario();
+              };
+          
+              function cargarHorario() {
+                const tx = dbHorario.transaction("horario", "readonly");
+                const store = tx.objectStore("horario");
+          
+                for (let i = 0; i < 11; i++) {
+                  const horaId = `hora-${i}`;
+                  const fila = document.createElement("tr");
+          
+                  const celdaHora = document.createElement("td");
+                  celdaHora.setAttribute("contenteditable", "true");
+                  celdaHora.setAttribute("data-id", horaId);
+                  celdaHora.textContent = `08:00`;
+          
+                  // Cargar hora desde IndexedDB
+                  store.get(horaId).onsuccess = e => {
+                    if (e.target.result) {
+                      celdaHora.textContent = e.target.result.valor;
+                    }
+                  };
+          
+                  celdaHora.addEventListener("input", () => {
+                    const tx2 = dbHorario.transaction("horario", "readwrite");
+                    const store2 = tx2.objectStore("horario");
+                    store2.put({ id: horaId, valor: celdaHora.textContent });
+                  });
+          
+                  fila.appendChild(celdaHora);
+          
+                  dias.forEach(dia => {
+                    const celda = document.createElement("td");
+                    const celdaId = `${dia}-${i}`;
+                    celda.setAttribute("contenteditable", "true");
+                    celda.setAttribute("data-id", celdaId);
+          
+                    // Cargar materia
+                    store.get(celdaId).onsuccess = e => {
+                      if (e.target.result) {
+                        celda.textContent = e.target.result.valor;
+                      }
+                    };
+          
+                    celda.addEventListener("input", () => {
+                      const tx2 = dbHorario.transaction("horario", "readwrite");
+                      const store2 = tx2.objectStore("horario");
+                      store2.put({ id: celdaId, valor: celda.textContent });
+                    });
+          
+                    fila.appendChild(celda);
+                  });
+          
+                  tabla.appendChild(fila);
+                }
+              }
+            });
+          </script>
+          
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Menú inferior -->
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fas fa-calendar-alt"></i>
+      <span>Agenda</span>
+    </a>
+    <a href="horario.html" class="nav-item active">
+      <i class="fas fa-clock"></i>
+      <span>Horario</span>
+    </a>
+    <a href="notas.html" class="nav-item">
+      <i class="fas fa-book"></i>
+      <span>Notas</span>
+    </a>
+    <a href="login.php" class="nav-item">
+      <i class="fas fa-cog"></i>
+      <span>Config</span>
+    </a>
+  </div>
+
+  
+  
+
+
+
+
+  
+
+  
+  
+
+  <section class="notas" id="notas">
+    <h2>👨‍🏫 Profesores</h2>
+    <p>Registra aquí a tus docentes y las materias que enseñan.</p>
+  
+    <button id="abrirModalProfesor" class="btn-agregar">Agregar Profesor</button>
+  
+    <div id="listaProfesores" class="profesores-container"></div>
+  </section>
+  
+  <!-- Modal para agregar/editar profesor -->
+  <div class="modal" id="modalProfesor">
+    <div class="modal-content">
+      <span class="cerrar" id="cerrarModalProfesor">&times;</span>
+      <h3 id="tituloModal">Nuevo Profesor</h3>
+      <form id="formProfesor">
+        <div class="fila-doble">
+          <input type="text" name="nombre" placeholder="Nombre" required>
+          <input type="text" name="apellido" placeholder="Apellido" required>
+        </div>
+      
+        <div class="fila-doble">
+          <input type="text" name="materia" placeholder="Materia Curricular" required>
+          <input type="tel" name="telefono" placeholder="Número de Teléfono">
+        </div>
+      
+        <input type="email" name="correo" placeholder="Correo Electrónico">
+      
+        <button type="submit">Guardar</button>
+      </form>
+      
+    </div>
+  </div>
+  
+
+<section class="config" id="config">
+  <h2>Configuración</h2>
+  <p>Personaliza la aplicación.</p>
+  <!-- Ejemplo: selector de tema, nombre de usuario, etc -->
+</section>
+
+
+  <!-- Menú inferior nuevo -->
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fas fa-calendar-alt"></i>
+      <span id="menu-agenda">Agenda</span>
+    </a>
+    <a href="horario.html" class="nav-item">
+      <i class="fas fa-clock"></i>
+      <span id="menu-horario">Horario</span>
+    </a>
+    <a href="notas.html" class="nav-item">
+      <i class="fas fa-book"></i>
+      <span id="menu-notas">Notas</span>
+    </a>
+    <a href="configuracion.html" class="nav-item active">
+      <i class="fas fa-cog"></i>
+      <span id="menu-config">Config</span>
+    </a>
+  </div>
+  
+  
+
+
+<!-- Font Awesome para íconos -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<script src="script_profesores.js"></script>
+
+<script src="script_horario.js"></script>
+<script src="config.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>

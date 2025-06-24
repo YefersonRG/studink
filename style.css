@@ -1,0 +1,503 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    padding-bottom: 80px;
+  }
+  
+  header {
+    background: #4a90e2;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  section {
+    margin: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+  
+  section h2 {
+    margin-bottom: 1rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  input, textarea, button {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .bottom-menu button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+  }
+
+  
+  /* menu */
+
+  .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-radius: 25px 25px 0 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  color: #888;
+  font-size: 0.8rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.nav-item.active {
+  color: #c2387e;
+}
+
+.nav-item.active i {
+  color: #c2387e;
+  position: relative;
+}
+
+.nav-item.active {
+    color: #4da6ff;
+  }
+  
+  .nav-item.active i {
+    color: #4da6ff;
+    position: relative;
+  }
+  
+  .nav-item.active::before {
+    content: "";
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: #e6f3ff;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(0, 149, 255, 0.2);
+    z-index: -1;
+    transition: all 0.3s ease;
+  }
+/* notas*/
+
+.bottom-nav {
+    justify-content: space-between;
+    padding: 0.6rem 0.3rem;
+  }
+  
+  .nav-item {
+    flex: 1;
+    min-width: 60px;
+  }
+  
+
+@media (max-width: 600px) {
+  .nav-item i {
+    font-size: 1.2rem;
+  }
+  .nav-item span {
+    font-size: 0.7rem;
+  }
+}
+
+
+
+
+
+.btn-agregar {
+    background: #4da6ff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+  .modal {
+    display: none; /* Oculpado por defecto */
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal.mostrar {
+    display: flex; /* Solo se muestra si tiene esta clase */
+  }
+  
+  .modal-content {
+    background: white;
+    width: 90%;
+    max-width: 420px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.5rem 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  
+  /* Iluminación suave al enfocar */
+  .modal-content:has(input:focus),
+  .modal-content:has(textarea:focus),
+  .modal-content:has(select:focus) {
+    box-shadow: 0 0 10px rgba(77, 166, 255, 0.4);
+    background-color: #f5fbff;
+  }
+  
+  .fila-doble {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .fila-doble input {
+    flex: 1;
+  }
+  
+  .modal-content input,
+  .modal-content button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+  }
+  
+  .modal-content input:focus {
+    outline: none;
+    border-color: #4da6ff;
+  }
+  
+  .modal-content button {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+  }
+  
+
+
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    color: #007da9;
+    border: 2px solid #007da9;
+    border-radius: 50px;
+    padding: 0.6rem 2.5rem 0.6rem 1rem;
+    font-size: 1rem;
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23007da9' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 125, 169, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 125, 169, 0.3);
+  }
+  
+  .evento {
+    background: #f0f8ff;
+    border-left: 5px solid #4da6ff;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+  
+  .evento h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .evento button {
+    margin-right: 0.5rem;
+    background-color: #ff5252;
+    border: none;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .evento button:first-of-type {
+    background-color: #ffa500;
+  }
+
+  
+
+  .horario-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+  
+  #tablaHorario {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  #tablaHorario th, #tablaHorario td {
+    border: 1px solid #ddd;
+    padding: 0.8rem;
+    min-width: 90px;
+  }
+  
+  #tablaHorario th {
+    background-color: #4da6ff;
+    color: white;
+  }
+  
+  #tablaHorario td[contenteditable="true"] {
+    background-color: #f9fcff;
+    cursor: text;
+  }
+  
+  #tablaHorario td[contenteditable="true"]:focus {
+    outline: 2px solid #4da6ff;
+  }
+
+  
+
+  .profesores-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .profesor-card {
+    background: #eef6ff;
+    border-left: 5px solid #4da6ff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  
+  .profesor-card h4 {
+    margin: 0 0 0.2rem;
+    font-size: 1.2rem;
+    color: #2a2a2a;
+  }
+  
+  .profesor-card p {
+    margin: 0.2rem 0;
+    color: #555;
+  }
+  
+  .profesor-card .acciones {
+    margin-top: 0.6rem;
+  }
+  
+  .profesor-card button {
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .profesor-card .editar {
+    background-color: #ffa500;
+    color: white;
+  }
+  
+  .profesor-card .eliminar {
+    background-color: #ff5252;
+    color: white;
+  }
+  
+
+  .materias-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+  }
+  
+  .materia-card {
+    background: #f0faff;
+    border-left: 5px solid #4da6ff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  
+  .materia-card h4 {
+    margin-bottom: 0.5rem;
+    color: #2a2a2a;
+  }
+  
+  .materia-card p {
+    margin: 0.2rem 0;
+    color: #555;
+  }
+  
+  .materia-card .acciones button {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-agregar {
+    margin-top: 1rem;
+  }
+  
+  .agregar-nota {
+    background-color: #4da6ff;
+    color: white;
+  }
+  
+  .editar-materia {
+    background-color: #ffa500;
+    color: white;
+  }
+  
+  .eliminar-materia {
+    background-color: #ff5252;
+    color: white;
+  }
+  
+
+  .materia-card ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  /* Tarjetas de configuración */
+.config-card {
+  background: #f0faff;
+  border-left: 5px solid #4da6ff;
+  padding: 1.2rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.config-card h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.config-card p {
+  margin: 0.5rem 0 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.config-card select {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+}
+
+body.modo-oscuro {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.modo-oscuro section {
+  background-color: #2b2b2b;
+  color: #f5f5f5;
+}
+
+body.modo-oscuro input,
+body.modo-oscuro select,
+body.modo-oscuro button {
+  background-color: #444;
+  color: white;
+  border-color: #666;
+}

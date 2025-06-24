@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="titulo-app">Studink</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <h1 id="titulo-app">Studink</h1>
+  </header>
+
+  <section class="agenda" id="agenda">
+    <h2 id="titulo-index">📅 Agenda</h2>
+    <p id="descripcion-index">Organiza tus eventos importantes, exámenes o entregas.</p>
+    <button id="abrirModalAgenda" class="btn-agregar" id="btn-agregar-evento">Agregar</button>
+
+    <!-- Filtro -->
+    <div class="filtro">
+      <label for="filtroImportancia" id="label-filtro-importancia">Filtrar por importancia:</label>
+      <select id="filtroImportancia">
+        <option value="todas" id="opt-todas">Todas</option>
+        <option value="normal" id="opt-normal">Normal</option>
+        <option value="medio" id="opt-medio">Medio</option>
+        <option value="importante" id="opt-importante">Importante</option>
+        <option value="super" id="opt-super">Súper importante</option>
+      </select>
+    </div>
+
+    <!-- Lista de eventos -->
+    <div id="listaEventos" class="eventos-container">
+      <div id="eventos" class="eventos-grid"></div>
+    </div>
+  </section>
+
+  <section class="notas">
+    <h2 id="titulo-notas">📘 Control de Notas</h2>
+    <p id="descripcion-notas">Aquí puedes ver o cargar tus calificaciones.</p>
+  </section>
+
+  <section class="config">
+    <h2 id="titulo-config">⚙️ Configuración</h2>
+    <p id="descripcion-config">Personaliza la aplicación.</p>
+  </section>
+
+  <!-- Menú inferior nuevo -->
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+      <i class="fas fa-calendar-alt"></i>
+      <span id="menu-agenda">Agenda</span>
+    </a>
+    <a href="horario.html" class="nav-item">
+      <i class="fas fa-clock"></i>
+      <span id="menu-horario">Horario</span>
+    </a>
+    <a href="notas.html" class="nav-item">
+      <i class="fas fa-book"></i>
+      <span id="menu-notas">Notas</span>
+    </a>
+    <a href="configuracion.html" class="nav-item">
+      <i class="fas fa-cog"></i>
+      <span id="menu-config">Config</span>
+    </a>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modalAgenda">
+    <div class="modal-content">
+      <span class="cerrar" id="cerrarModalAgenda">&times;</span>
+      <h3 id="titulo-modal-agenda">Nuevo Evento</h3>
+      <form id="eventForm">
+        <input type="text" name="titulo" placeholder="Título del evento" required>
+        <input type="date" name="fecha" required>
+        <textarea name="descripcion" placeholder="Descripción..." required></textarea>
+        <select name="importancia" required>
+          <option value="" id="opt-select-importancia">Seleccionar importancia</option>
+          <option value="normal" id="opt-modal-normal">Normal</option>
+          <option value="medio" id="opt-modal-medio">Medio</option>
+          <option value="importante" id="opt-modal-importante">Importante</option>
+          <option value="super" id="opt-modal-super">Súper importante</option>
+        </select>
+        <button type="submit" id="btn-guardar-evento">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Studink</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <h1 id="titulo-app">Studink</h1>
+  </header>
+
+  <section class="config" id="config">
+    <h2 id="titulo-config">⚙️ Configuración</h2>
+    <p id="descripcion-config">Personaliza la aplicación según tus preferencias.</p>
+
+    <!-- Modo claro/oscuro -->
+    <div class="config-card">
+      <h3 id="label-tema">🌗 Tema de la app</h3>
+      <select id="modo-tema">
+        <option value="light">Claro</option>
+        <option value="dark">Oscuro</option>
+      </select>
+    </div>
+
+    <!-- Idioma -->
+    <div class="config-card">
+      <h3 id="label-idioma">🌍 Idioma</h3>
+      <select id="idioma-select">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <!-- Borrar todos los datos -->
+    <div class="config-card">
+      <h3 id="titulo-borrar-datos">🗑 Borrar todos los datos</h3>
+
+      <p id="descripcion-borrado">
+        Elimina toda la información guardada en la app, incluyendo materias, notas y eventos.
+      </p>
+      
+      <button id="btn-borrar-datos" class="eliminar-materia">Borrar todo</button>
+    </div>
+  </section>
+
+  <!-- Menú inferior -->
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fas fa-calendar-alt"></i>
+      <span id="menu-agenda">Agenda</span>
+    </a>
+    <a href="horario.html" class="nav-item">
+      <i class="fas fa-clock"></i>
+      <span id="menu-horario">Horario</span>
+    </a>
+    <a href="notas.html" class="nav-item">
+      <i class="fas fa-book"></i>
+      <span id="menu-notas">Notas</span>
+    </a>
+    <a href="configuracion.html" class="nav-item active">
+      <i class="fas fa-cog"></i>
+      <span id="menu-config">Config</span>
+    </a>
+  </div>
+  
+  
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
